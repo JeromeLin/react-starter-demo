@@ -4,50 +4,54 @@ import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute } from 'react-router';
 import createHashHistory from 'history/lib/createHashHistory';
 
-import App from './pages/App';
-import NotFoundPage from './pages/NotFoundPage';
-import Page1 from './pages/Page1';
-import Page2 from './pages/Page2';
-
 let history = createHashHistory({
   queryKey: false
 });
 
 const rootRoute = {
     path: '/',
-    component: App,
+    getComponent(location, cb) {
+        require.ensure([], (require) => {
+            var App = require('./pages/App');
+            cb(null, App)
+        })
+    },
     childRoutes: [
-    {
-        getIndexRoute(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, Page1)
-            })
+        {
+            getIndexRoute(location, cb) {
+                require.ensure([], (require) => {
+                    var Page1 = require('./pages/Page1');
+                    cb(null, Page1)
+                })
+            }
+        },
+        {
+            path: 'Page1',
+            getComponent(location, cb) {
+                require.ensure([], (require) => {
+                    var Page1 = require('./pages/Page1');
+                    cb(null, Page1)
+                })
+            }
+        },
+        {
+            path: 'Page2',
+            getComponent(location, cb) {
+                require.ensure([], (require) => {
+                    var Page2 = require('./pages/Page2');
+                    cb(null, Page2)
+                })
+            }
+        },
+        {
+            path: '*',
+            getComponent(location, cb) {
+                require.ensure([], (require) => {
+                    var NotFoundPage = require('./pages/NotFoundPage');
+                    cb(null, NotFoundPage)
+                })
+            }
         }
-    },
-    {
-        path: 'Page1',
-        getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, Page1)
-            })
-        }
-    },
-    {
-        path: 'Page2',
-        getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, Page2)
-            })
-        }
-    },
-    {
-        path: '*',
-        getComponent(location, cb) {
-            require.ensure([], (require) => {
-                cb(null, NotFoundPage)
-            })
-        }
-    }
     ]
 }
 ReactDOM.render(
