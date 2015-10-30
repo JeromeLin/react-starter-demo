@@ -1,10 +1,12 @@
 # JeromeUI
 
-  React 0.14
-  打包   Webpack
-  服务端 Nodejs(express)
+* React:   0.14
+* 工程化:   webpack
+* 前端路由: react-router
+* 样式表:   sass  
+* 服务端:   Nodejs(express)
+* 前后端同构渲染页面
 
-  前后端同构渲染页面
 
 项目安装
 -----------
