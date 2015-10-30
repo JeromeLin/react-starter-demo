@@ -1,5 +1,5 @@
 {
-  "name": "demo",
+  "name": "react-starter-demo",
   "version": "1.0.0",
   "scripts": {
     "start": "npm run build; node app.js",
@@ -21,7 +21,6 @@
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
     "classnames": "^2.1.3",
-    "normalize.css": "3.0.3",
     "react-router": "^1.0.0-rc3",
     "history": "^1.13.0"
   },
@@ -33,7 +32,6 @@
     "sass-loader": "^1.0.3",
     "autoprefixer-loader": "^3.1.0",
     "bundle-loader": "^0.5.0",
-    "webpack-dev-server": "^1.10.1",
-    "extract-text-webpack-plugin": "^0.8.2"
+    "webpack-dev-server": "^1.10.1"
   }
 }
