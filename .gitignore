@@ -1,0 +1,10 @@
+.DS_Store
+node_modules/
+
+exceptions.log
+logger.log
+error.log
+npm-debug.log
+log/*.log
+
+assets/

@@ -1,0 +1,31 @@
+
+@import "../../scss/mixin";
+@import "../../scss/animations/_fadein-top-down";
+
+.ui-modal {
+    @include fixed-full();
+    display: none;
+
+    &.in {
+        display: block;
+    }
+
+    .ui-modal-container {
+        @extend .fadein-top-down;
+        border-radius: 8px;
+        background: #fff;
+        z-index: 1000;
+
+        .ui-modal-body {
+            padding: 20px;
+            font-size: 16px;
+            overflow: auto;
+
+            /*span {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }*/
+        }
+    }
+}
