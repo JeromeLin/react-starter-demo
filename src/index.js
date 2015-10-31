@@ -9,52 +9,44 @@ let history = createHashHistory({
 });
 
 const rootRoute = {
-    path: '/',
-    getComponent(location, cb) {
+  path: '/',
+  component: require('./pages/App'),
+  childRoutes: [
+    {
+      getIndexRoute(location, cb) {
         require.ensure([], (require) => {
-            var App = require('./pages/App');
-            cb(null, App)
-        })
+          cb(null, require('./pages/Page1'))
+        }, 'Page1');
+      }
     },
-    childRoutes: [
-        {
-            getIndexRoute(location, cb) {
-                require.ensure([], (require) => {
-                    var Page1 = require('./pages/Page1');
-                    cb(null, Page1)
-                })
-            }
-        },
-        {
-            path: 'Page1',
-            getComponent(location, cb) {
-                require.ensure([], (require) => {
-                    var Page1 = require('./pages/Page1');
-                    cb(null, Page1)
-                })
-            }
-        },
-        {
-            path: 'Page2',
-            getComponent(location, cb) {
-                require.ensure([], (require) => {
-                    var Page2 = require('./pages/Page2');
-                    cb(null, Page2)
-                })
-            }
-        },
-        {
-            path: '*',
-            getComponent(location, cb) {
-                require.ensure([], (require) => {
-                    var NotFoundPage = require('./pages/NotFoundPage');
-                    cb(null, NotFoundPage)
-                })
-            }
-        }
-    ]
+    {
+      path: 'Page1',
+      getComponent(location, cb) {
+        require.ensure([], (require) => {
+          cb(null, require('./pages/Page1'))
+        }, 'Page1');
+      }
+    },
+    {
+      path: 'Page2',
+      getComponent(location, cb) {
+        require.ensure([], (require) => {
+          cb(null, require('./pages/Page2'))
+        }, 'Page2');
+      }
+    },
+    {
+      path: '*',
+      getComponent(location, cb) {
+        require.ensure([], (require) => {
+          cb(null, require('./pages/NotFoundPage'))
+        }, 'NotFoundPage');
+      }
+    }
+  ]
 }
+
 ReactDOM.render(
-    <Router routes={rootRoute} history={history} />,
-    document.getElementById('app')
+  <Router routes={rootRoute} history={history} />,
+  document.getElementById('app')
 );

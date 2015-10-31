@@ -9,7 +9,7 @@ module.exports = {
   output: {
     path: path.resolve('assets'),
     filename: 'js/[name].min.js',
-    chunkFilename: 'js/[chunkhash:8].chunk.min.js',
+    chunkFilename: 'js/[name].[chunkhash:8].min.js',
     publicPath: '/'
   },
   plugins: [

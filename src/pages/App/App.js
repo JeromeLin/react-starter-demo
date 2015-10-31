@@ -7,22 +7,22 @@ import Footer from '../Footer';
 
 class App extends Component {
 
-    render() {
-        return (
-            <div>
-                <Header />
-                <div className="App-container">
-                    {this.props.children}
-                </div>
-                <Footer />
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <Header />
+        <div className="App-container">
+          {this.props.children}
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 }
 
 App.propTypes = {
-    children : PropTypes.element.isRequired,
-    error    : PropTypes.object,
+  children : PropTypes.element.isRequired,
+  error    : PropTypes.object,
 };
 
 export default App;
