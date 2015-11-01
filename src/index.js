@@ -20,7 +20,7 @@ const rootRoute = {
       }
     },
     {
-      path: 'Page1',
+      path: 'page1',
       getComponent(location, cb) {
         require.ensure([], (require) => {
           cb(null, require('./pages/Page1'))
@@ -28,7 +28,7 @@ const rootRoute = {
       }
     },
     {
-      path: 'Page2',
+      path: 'page2',
       getComponent(location, cb) {
         require.ensure([], (require) => {
           cb(null, require('./pages/Page2'))

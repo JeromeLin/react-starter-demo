@@ -1,31 +1,37 @@
 
-@import "../../scss/mixin";
-@import "../../scss/animations/_fadein-top-down";
+@import "../../scss/animations/_scale";
 
 .ui-modal {
-    @include fixed-full();
-    display: none;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
 
     &.in {
-        display: block;
+        visibility: visible;
+
+        .ui-modal-container {
+            animation: scale-up 0.3s ease-out;
+        }
     }
 
     .ui-modal-container {
-        @extend .fadein-top-down;
+        position: relative;
         border-radius: 8px;
         background: #fff;
-        z-index: 1000;
+        z-index: 1001;
 
         .ui-modal-body {
             padding: 20px;
             font-size: 16px;
             overflow: auto;
-
-            /*span {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }*/
         }
     }
 }

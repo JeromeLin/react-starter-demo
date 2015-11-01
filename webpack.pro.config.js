@@ -18,6 +18,13 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendors'
     }),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.DefinePlugin({
+      "process.env": {
+        NODE_ENV: JSON.stringify("production")
+      }
+    }),
     // 压缩JS
     new webpack.optimize.UglifyJsPlugin({
       compress: {
@@ -29,7 +36,8 @@ module.exports = {
     loaders: [
       { 
         test: /\.(js|jsx)$/, 
-        loader: 'babel' 
+        loader: 'babel',
+        exclude: /node_modules/
       },
       { 
         test: /\.scss$/, 
@@ -45,7 +53,6 @@ module.exports = {
       }
     ]
   },
-  // target: 'node',
   resolve: {
     extensions: ['', '.js', '.json', '.coffee']
   },

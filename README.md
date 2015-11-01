@@ -21,4 +21,4 @@
 开发环境
 -----------
 * npm run dev
-* http://localhost:8080/#/Page1
+* http://localhost:8080/webpack-dev-server/#/Page1

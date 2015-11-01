@@ -12,12 +12,21 @@ module.exports = {
     publicPath: '/',
     libraryTarget: "commonjs2"
   },
+  plugins: [
+    // 压缩JS
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    })
+  ],
   target: 'node',
   module: {
     loaders: [
       { 
         test: /\.(js|jsx)$/, 
-        loader: 'babel' 
+        loader: 'babel',
+        exclude: /node_modules/
       },
       { 
         test: /\.scss$/, 

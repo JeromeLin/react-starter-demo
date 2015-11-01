@@ -16,13 +16,21 @@ module.exports = {
     // 提取公共依赖
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendors'
+    }),
+    // new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
+    new webpack.DefinePlugin({
+      "process.env": {
+        NODE_ENV: JSON.stringify("development")
+      }
     })
   ],
   module: {
     loaders: [
       { 
         test: /\.(js|jsx)$/, 
-        loader: 'babel' 
+        loader: 'babel',
+        exclude: /node_modules/
       },
       { 
         test: /\.scss$/, 
