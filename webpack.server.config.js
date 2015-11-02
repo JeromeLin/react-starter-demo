@@ -3,6 +3,7 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
+  devtool: 'source-map',
   entry: {
     server: ['./src/server.js']
   },
@@ -13,7 +14,7 @@ module.exports = {
     libraryTarget: "commonjs2"
   },
   plugins: [
-    // 压缩JS
+    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false

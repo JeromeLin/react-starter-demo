@@ -23,7 +23,8 @@ module.exports = {
     new webpack.DefinePlugin({
       "process.env": {
         NODE_ENV: JSON.stringify("production")
-      }
+      },
+      __DEBUG__: false
     }),
     // 压缩JS
     new webpack.optimize.UglifyJsPlugin({
