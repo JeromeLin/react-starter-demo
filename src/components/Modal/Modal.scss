@@ -1,37 +1,36 @@
 
+@import "../../scss/animations/_fade";
 @import "../../scss/animations/_scale";
 
 .ui-modal {
-    position: fixed;
-    left: 0px;
-    top: 0px;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    visibility: hidden;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: rgba(0, 0, 0, 0.5);
+  animation: fade-in 0.3s ease-out;
+  user-select: none;
+  z-index: 201;
 
-    &.in {
-        visibility: visible;
+/*  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;*/
 
-        .ui-modal-container {
-            animation: scale-up 0.3s ease-out;
-        }
+  > .ui-modal-wrapper {
+    position: relative;
+    padding: 60px 0;
+/*    overflow: auto;
+    z-index: 1001;
+*/
+    >.ui-modal-container {
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      animation: scale-up 0.3s ease-out;
     }
-
-    .ui-modal-container {
-        position: relative;
-        border-radius: 8px;
-        background: #fff;
-        z-index: 1001;
-
-        .ui-modal-body {
-            padding: 20px;
-            font-size: 16px;
-            overflow: auto;
-        }
-    }
+  }
 }

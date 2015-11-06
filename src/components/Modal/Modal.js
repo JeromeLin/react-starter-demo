@@ -1,5 +1,6 @@
 
 import React, { Component, PropTypes } from 'react';
+import ReactDOM from 'react-dom';
 import classnames from 'classnames';
 import './Modal.scss';
 
@@ -7,79 +8,113 @@ import Mask from '../Mask';
 
 class Modal extends Component {
 
-	componentWillMount() {
-		console.log('componentWillMount');
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      height : 0,
+    };
+  }
 
-	componentDidMount() {
-		console.log('componentDidMount');
-	}
+  componentWillMount() {
+    console.log('componentWillMount');
+  }
 
-	componentWillReceiveProps(nextProps) {
-		console.log('componentWillReceiveProps');
-	}
+  componentDidMount() {
+    console.log('componentDidMount');
 
-	shouldComponentUpdate() {
-		console.log('shouldComponentUpdate');
-		return true;
-	}
+    const dom = this.refs.container;
+    this.setState({
+      height : dom.offsetHeight
+    });
+  }
 
-	componentWillUpdate() {
-		console.log('componentWillUpdate');
-	}
+  componentWillReceiveProps(nextProps) {
+    console.log('componentWillReceiveProps');
+  }
 
-	componentDidUpdate() {
-		console.log('componentDidUpdate');
-	}
+  shouldComponentUpdate() {
+    console.log('shouldComponentUpdate');
 
-	componentWillUnmount() {
-		console.log('componentWillUnmount');
-	}
+    if (this.state.height == 0) {
+      return true;
+    } else {
+      return false;
+    }
+    // return true;
+  }
 
-	render () {
-		console.log('render');
+  componentWillUpdate() {
+    console.log('componentWillUpdate');
+  }
 
-		const cls = {},
-			  	style = {};
+  componentDidUpdate() {
+    console.log('componentDidUpdate');
+  }
 
-		cls.modal = classnames({
-			"ui-modal"  : true,
-			"in"        : this.props.visable,
-		});
-		style.container = {
-			// position    : 'absolute',
-			// left        : '50%',
-			// top         : '50%',
-			// marginLeft  : - this.props.width / 2,
-			// marginTop   : - this.props.height / 2,
-			width       : this.props.width,
-			height      : this.props.height,
-		};
+  componentWillUnmount() {
+    console.log('componentWillUnmount');
+  }
 
-		return (
-			<div className={cls.modal}>
-				<div className="ui-modal-container" style={style.container}>
-					{this.props.children}
-				</div>
-				<Mask visable={this.props.visable} onClose={this.props.onMaskClick} />
-			</div>
-		);
-	}
+  _onContainerClick(e) {
+    e.stopPropagation();
+  }
+
+  render () {
+    console.log('render');
+    const style = {};
+
+    style.modal = {};
+    style.wrapper = {
+      width     : '100%',
+      height    : '100%',
+    };
+    style.container = {
+      position  : 'absolute',
+      left      : '50%',
+      top       : '50%',
+      marginLeft: - this.props.width / 2,
+      marginTop : - this.state.height / 2,
+      width     : this.props.width,
+    };
+
+    if (this.state.height > window.innerHeight) {
+      style.modal.WebkitOverflowScrolling = 'touch';
+      style.wrapper = {};
+      style.container.position = 'relative';
+      style.container.top = 0;
+      style.container.marginTop = 0;
+    }
+
+    if (this.props.width > window.innerWidth) {
+      style.modal.WebkitOverflowScrolling = 'touch';
+      style.container.position = 'relative';
+      style.container.left = 0;
+      style.container.marginLeft = 0;
+    }
+
+    return (
+      <div className="ui-modal" style={style.modal} onClick={this.props.onMaskClick}>
+        <div className="ui-modal-wrapper" style={style.wrapper}>
+          <div className="ui-modal-container" ref="container" style={style.container} onClick={this._onContainerClick}>
+            {this.props.children}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
 }
 
 Modal.propTypes = { 
-	width       : PropTypes.number,
-	height      : PropTypes.number,
-	visable     : PropTypes.bool,
-	onMaskClick : PropTypes.func,
+  width       : PropTypes.number,
+  // height      : PropTypes.number,
+  onMaskClick : PropTypes.func,
 };
 
 Modal.defaultProps = {
-	width       : 600,
-	height      : 400,
-	visable     : false,
-	onMaskClick : function () {},
+  width       : 600,
+  // height      : 400,
+  onMaskClick : function () {},
 };
 
 export default Modal;

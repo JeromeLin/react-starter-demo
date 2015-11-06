@@ -16,9 +16,9 @@
 生产环境
 -----------
 * npm start
-* http://localhost:3000/#/Page1
+* http://localhost:3000/page1
 
 开发环境
 -----------
 * npm run dev
-* http://localhost:8080/webpack-dev-server/#/Page1
+* http://localhost:3000/page1

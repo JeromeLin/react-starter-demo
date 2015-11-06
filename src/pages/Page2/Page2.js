@@ -10,7 +10,7 @@ class Page2 extends Component {
     return (
       <div>
         <p>This is Page2</p>
-        <p><Link to="/Page1">=> Goto Page1</Link></p>
+        <p><Link to="/page1">=> Goto Page1</Link></p>
       </div>
     );
   }

@@ -2,9 +2,11 @@
 import React, { Component, PropTypes } from 'react';
 import './App.scss';
 
+// import withContext from '../../decorators/withContext';
 import Header from '../Header';
 import Footer from '../Footer';
 
+// @withContext
 class App extends Component {
 
   render() {

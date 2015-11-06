@@ -6,7 +6,11 @@ module.exports = {
   debug: true,
   devtool: 'inline-source-map',
   entry: {
-    index: ['webpack/hot/dev-server', './src/index.js']
+    index: [
+      'webpack-dev-server/client?http://127.0.0.1:3000',
+      'webpack/hot/only-dev-server',
+      './src/index.js'
+    ]
   },
   output: {
     path: path.resolve('assets'),
@@ -33,7 +37,7 @@ module.exports = {
     loaders: [
       { 
         test: /\.(js|jsx)$/, 
-        loader: 'babel',
+        loader: 'react-hot!babel',
         exclude: /node_modules/
       },
       { 

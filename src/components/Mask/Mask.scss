@@ -9,9 +9,5 @@
     height: 100%;
     animation: fade-in 0.2s ease-out;
     background: rgba(0, 0, 0, .5);
-    display: none;
-
-    &.in {
-        display: block;
-    }
+    z-index: 1000;
 }
