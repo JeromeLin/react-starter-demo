@@ -8,17 +8,16 @@ let history = createBrowserHistory({
   queryKey: false
 });
 
+let ensure = (cb) => {
+  require.ensure([], (require) => {
+    cb(null, require('./pages/Page1'))
+  }, 'Page1');
+}
+
 const rootRoute = {
   path: '/',
   component: require('./pages/App'),
   childRoutes: [
-    {
-      getIndexRoute(location, cb) {
-        require.ensure([], (require) => {
-          cb(null, require('./pages/Page1'))
-        }, 'Page1');
-      }
-    },
     {
       path: 'page1',
       getComponent(location, cb) {
@@ -43,7 +42,14 @@ const rootRoute = {
         }, 'NotFoundPage');
       }
     }
-  ]
+  ],
+  indexRoute: {
+    getComponent(location, cb) {
+      require.ensure([], (require) => {
+        cb(null, require('./pages/Page1'))
+      }, 'Page1');
+    }
+  }
 }
 
 ReactDOM.render(
