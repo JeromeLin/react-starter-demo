@@ -1,6 +1,5 @@
 
 import React, { Component, PropTypes } from 'react';
-import classnames from 'classnames';
 import './Toast.scss';
 
 import Mask from '../Mask';
@@ -10,7 +9,10 @@ class Toast extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      height: 0,
+      offset: {
+        width : 0,
+        height: 0
+      },
       timer: undefined
     };
   }
@@ -18,7 +20,10 @@ class Toast extends Component {
   componentDidMount() {
     const dom = this.refs.container;
     this.setState({
-      height : dom.offsetHeight,
+      offset: {
+        width : dom.offsetWidth,
+        height: dom.offsetHeight,
+      }
     });
 
     var timer = setTimeout(() => {
@@ -31,7 +36,7 @@ class Toast extends Component {
   }
 
   shouldComponentUpdate() {
-    return (this.state.height === 0);
+    return (this.state.offset.height === 0);
   }
 
   componentWillUnmount() {
@@ -50,8 +55,8 @@ class Toast extends Component {
       position  : 'absolute',
       left      : '50%',
       top       : '50%',
-      marginLeft: - this.props.width / 2,
-      marginTop : - this.state.height / 2,
+      marginLeft: - this.state.offset.width / 2,
+      marginTop : - this.state.offset.height / 2,
       width     : this.props.width,
     };
 
@@ -76,7 +81,7 @@ class Toast extends Component {
             <p style={{textAlign: 'center'}}>{this.props.message}</p>
           </div>
         </div>
-        <Mask type="light" onClose={this.props.onMaskClick} />
+        <Mask type="transparent" onClose={this.props.onMaskClick} />
       </div>
     );
   }
@@ -84,12 +89,15 @@ class Toast extends Component {
 }
 
 Toast.propTypes = { 
-  width       : PropTypes.number,
+  width       : PropTypes.oneOfType([
+                  PropTypes.string,
+                  PropTypes.number,
+                ]),
   onMaskClick : PropTypes.func,
 };
 
 Toast.defaultProps = {
-  width       : 270,
+  width       : '70%',
   onMaskClick : function () {},
 };
 

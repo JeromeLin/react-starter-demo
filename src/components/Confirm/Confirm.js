@@ -1,6 +1,5 @@
 
 import React, { Component, PropTypes } from 'react';
-import classnames from 'classnames';
 
 import Modal from '../Modal';
 import ModalBody from '../ModalBody';

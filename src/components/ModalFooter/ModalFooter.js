@@ -5,11 +5,11 @@ import './ModalFooter.scss';
 class ModalFooter extends Component {
 
   render () { 
-    let liStyle = {
+    const liStyle = {
       width: 100 / React.Children.count(this.props.children) + '%',
     };
 
-    let children = React.Children.map(this.props.children, (option, index) => {
+    const children = React.Children.map(this.props.children, (option, index) => {
       return <li key={index} style={liStyle}>{option}</li>
     }, this);
 

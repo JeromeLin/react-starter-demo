@@ -1,7 +1,6 @@
 
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import classnames from 'classnames';
 import './Modal.scss';
 
 class Modal extends Component {
@@ -9,7 +8,10 @@ class Modal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      height: 0,
+      offset: {
+        width : 0,
+        height: 0
+      },
     };
   }
 
@@ -22,7 +24,10 @@ class Modal extends Component {
 
     const dom = this.refs.container;
     this.setState({
-      height : dom.offsetHeight,
+      offset: {
+        width : dom.offsetWidth,
+        height: dom.offsetHeight,
+      }
     });
   }
 
@@ -33,7 +38,7 @@ class Modal extends Component {
   shouldComponentUpdate() {
     console.log('shouldComponentUpdate');
 
-    return (this.state.height === 0);
+    return (this.state.offset.height === 0);
   }
 
   componentWillUpdate() {
@@ -65,12 +70,12 @@ class Modal extends Component {
       position  : 'absolute',
       left      : '50%',
       top       : '50%',
-      marginLeft: - this.props.width / 2,
-      marginTop : - this.state.height / 2,
+      marginLeft: - this.state.offset.width / 2,
+      marginTop : - this.state.offset.height / 2,
       width     : this.props.width,
     };
 
-    if (this.state.height > window.innerHeight) {
+    if (this.state.offset.height > window.innerHeight) {
       style.modal.WebkitOverflowScrolling = 'touch';
       style.wrapper = {};
       style.container.position = 'relative';
@@ -85,14 +90,10 @@ class Modal extends Component {
       style.container.marginLeft = 0;
     }
 
-    const wrapperClass = classnames({
-      "ui-modal-container": true,
-    });
-
     return (
       <div className="ui-modal" style={style.modal} onClick={this.props.onMaskClick}>
         <div className="ui-modal-wrapper" style={style.wrapper}>
-          <div className={wrapperClass} ref="container" style={style.container} onClick={this._onContainerClick}>
+          <div className="ui-modal-container" ref="container" style={style.container} onClick={this._onContainerClick}>
             {this.props.children}
           </div>
         </div>
@@ -103,12 +104,15 @@ class Modal extends Component {
 }
 
 Modal.propTypes = { 
-  width       : PropTypes.number,
+  width       : PropTypes.oneOfType([
+                  PropTypes.string,
+                  PropTypes.number,
+                ]),
   onMaskClick : PropTypes.func,
 };
 
 Modal.defaultProps = {
-  width       : 600,
+  width       : '70%',
   onMaskClick : function () {},
 };
 
