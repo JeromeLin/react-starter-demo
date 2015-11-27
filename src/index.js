@@ -8,12 +8,6 @@ let history = createBrowserHistory({
   queryKey: false
 });
 
-let ensure = (cb) => {
-  require.ensure([], (require) => {
-    cb(null, require('./pages/Page1'))
-  }, 'Page1');
-}
-
 const rootRoute = {
   path: '/',
   component: require('./pages/App'),
