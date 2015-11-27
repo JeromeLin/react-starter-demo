@@ -14,17 +14,10 @@
   user-select: none;
   z-index: 201;
 
-/*  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: stretch;*/
-
-  > .ui-modal-wrapper {
+  >.ui-modal-wrapper {
     position: relative;
     padding: 60px 0;
-/*    overflow: auto;
-    z-index: 1001;
-*/
+
     >.ui-modal-container {
       margin: 0 auto;
       background: #fff;

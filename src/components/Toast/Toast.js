@@ -1,51 +1,41 @@
 
 import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
 import classnames from 'classnames';
-import './Modal.scss';
+import './Toast.scss';
 
-class Modal extends Component {
+import Mask from '../Mask';
+
+class Toast extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
       height: 0,
+      timer: undefined
     };
   }
 
-  componentWillMount() {
-    console.log('componentWillMount');
-  }
-
   componentDidMount() {
-    console.log('componentDidMount');
-
     const dom = this.refs.container;
     this.setState({
       height : dom.offsetHeight,
     });
-  }
 
-  componentWillReceiveProps(nextProps) {
-    console.log('componentWillReceiveProps');
+    var timer = setTimeout(() => {
+      this.props.onMaskClick();
+    }, 3000);
+    
+    this.setState({
+      timer: timer
+    });
   }
 
   shouldComponentUpdate() {
-    console.log('shouldComponentUpdate');
-
     return (this.state.height === 0);
   }
 
-  componentWillUpdate() {
-    console.log('componentWillUpdate');
-  }
-
-  componentDidUpdate() {
-    console.log('componentDidUpdate');
-  }
-
   componentWillUnmount() {
-    console.log('componentWillUnmount');
+    clearTimeout(this.state.timer);
   }
 
   _onContainerClick(e) {
@@ -53,14 +43,9 @@ class Modal extends Component {
   }
 
   render () {
-    console.log('render');
     const style = {};
 
-    style.modal = {};
-    style.wrapper = {
-      width     : '100%',
-      height    : '100%',
-    };
+    style.toast = {};
     style.container = {
       position  : 'absolute',
       left      : '50%',
@@ -71,46 +56,42 @@ class Modal extends Component {
     };
 
     if (this.state.height > window.innerHeight) {
-      style.modal.WebkitOverflowScrolling = 'touch';
-      style.wrapper = {};
+      style.toast.WebkitOverflowScrolling = 'touch';
       style.container.position = 'relative';
       style.container.top = 0;
       style.container.marginTop = 0;
     }
 
     if (this.props.width > window.innerWidth) {
-      style.modal.WebkitOverflowScrolling = 'touch';
+      style.toast.WebkitOverflowScrolling = 'touch';
       style.container.position = 'relative';
       style.container.left = 0;
       style.container.marginLeft = 0;
     }
 
-    const wrapperClass = classnames({
-      "ui-modal-container": true,
-    });
-
     return (
-      <div className="ui-modal" style={style.modal} onClick={this.props.onMaskClick}>
-        <div className="ui-modal-wrapper" style={style.wrapper}>
-          <div className={wrapperClass} ref="container" style={style.container} onClick={this._onContainerClick}>
-            {this.props.children}
+      <div className="ui-toast" style={style.toast}>
+        <div className="ui-toast-container" ref="container" style={style.container} onClick={this._onContainerClick}>
+          <div className="ui-toast-body">
+            <p style={{textAlign: 'center'}}>{this.props.message}</p>
           </div>
         </div>
+        <Mask type="light" onClose={this.props.onMaskClick} />
       </div>
     );
   }
 
 }
 
-Modal.propTypes = { 
+Toast.propTypes = { 
   width       : PropTypes.number,
   onMaskClick : PropTypes.func,
 };
 
-Modal.defaultProps = {
-  width       : 600,
+Toast.defaultProps = {
+  width       : 270,
   onMaskClick : function () {},
 };
 
-export default Modal;
+export default Toast;
 

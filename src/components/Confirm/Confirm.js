@@ -6,7 +6,7 @@ import Modal from '../Modal';
 import ModalBody from '../ModalBody';
 import ModalFooter from '../ModalFooter';
 
-class Alert extends Component {
+class Confirm extends Component {
 
   render () {
     return (
@@ -15,22 +15,25 @@ class Alert extends Component {
           <p style={{textAlign: 'center'}}>{this.props.message}</p>
         </ModalBody>
         <ModalFooter>
-          <button type="button" onClick={this.props.onClose}>关闭</button>
+          <button type="button" onClick={this.props.onCancel}>取消</button>
+          <button type="button" onClick={this.props.onOK}>确定</button>
         </ModalFooter>
       </Modal>
     );
   }
 }
 
-Alert.propTypes = {
-  message: PropTypes.string,
-  onClose: PropTypes.func,
+Confirm.propTypes = {
+  message : PropTypes.string,
+  onOK    : PropTypes.func,
+  onCancel: PropTypes.func,
 };
 
-Alert.defaultProps = {
-  message: '',
-  onClose: function () {},
+Confirm.defaultProps = {
+  message : '',
+  onOK    : function () {},
+  onCancel: function () {},
 };
 
-export default Alert;
+export default Confirm;
 
